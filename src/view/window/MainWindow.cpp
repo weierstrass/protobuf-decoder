@@ -14,17 +14,17 @@ MainWindow::MainWindow() : m_VBox(Gtk::ORIENTATION_VERTICAL)
   m_VBox.pack_start(_encodedTextArea);
   m_VBox.pack_start(_decodedTextArea);
   
-  _encodedTextArea._textView.get_buffer()->signal_changed().connect(
-      sigc::bind<DecodedTextArea*>(
+  _encodedTextArea._textView.get_buffer()->signal_end_user_action().connect(
+      sigc::bind(
           sigc::mem_fun(_signalHandler, &MainSignalHandler::onEncodedTextAreaChange),
-          &_decodedTextArea
+          &_encodedTextArea, &_decodedTextArea
       )
   );
 
-  _decodedTextArea._textView.get_buffer()->signal_changed().connect(
-      sigc::bind<EncodedTextArea*>(
+  _decodedTextArea._textView.get_buffer()->signal_end_user_action().connect(
+      sigc::bind(
           sigc::mem_fun(_signalHandler, &MainSignalHandler::onDecodedTextAreaChange),
-          &_encodedTextArea
+          &_encodedTextArea, &_decodedTextArea
       )
   );
 

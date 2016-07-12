@@ -14,6 +14,10 @@ public:
 
     virtual ~TextAreaBase() {}
 
+    std::string getText();
+
+    void setText(const std::string& iText);
+
     Gtk::TextView _textView;
   
 };

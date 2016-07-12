@@ -1,4 +1,4 @@
-SRCDIR = src src/view/window src/view/signal_handler
+SRCDIR = src src/view/window src/view/signal_handler src/conversion
 OBJDIR = build
 
 VPATH = $(SRCDIR)
@@ -8,10 +8,10 @@ CSRCS = $(wildcard $(CCSRCS))
 SRCS = $(ASRCS) $(CSRCS)  
 OBJS = $(addprefix $(OBJDIR)/, $(notdir $(CSRCS:.cpp=.o)))
 
-CXX = g++-5
+CXX = clang++
 
 CXXFLAGS = -g -std=c++11
-LDFLAGS = `pkg-config gtkmm-3.0 --cflags --libs`
+LDFLAGS = `pkg-config gtkmm-3.0 --cflags --libs` -I/usr/local/Cellar/boost/1.60.0_2/include
 
 LIBS =
 
