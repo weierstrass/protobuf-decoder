@@ -3,7 +3,7 @@
 namespace protobuf_decoder
 {
 
-    MainWindow::MainWindow() : m_VBox(Gtk::ORIENTATION_VERTICAL)
+    MainWindow::MainWindow() : _box(Gtk::ORIENTATION_VERTICAL)
     {
         // Set up window.
         set_title("Protobuf decoder");
@@ -31,7 +31,7 @@ namespace protobuf_decoder
             )
         );
 
-        // Show elements.
+        // Show widgets.
         show_all_children();
     }
 
