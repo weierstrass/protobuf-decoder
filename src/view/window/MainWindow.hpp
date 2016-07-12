@@ -10,33 +10,50 @@
 
 namespace protobuf_decoder
 {
+    /**
+     * @brief Window for the conversion proccess.
+     *
+     * Contains the following widgets:
+     *  - Text field for encoded text.
+     *  - Text field for decoded text.
+     *  - @todo field for message path
+     *  - @todo field for algo selection
+     *
+     * The widgets who needs it gets registered with the
+     * MainSignalHandler class.
+     */
+    class MainWindow : public Gtk::Window
+    {
+    public:
+        /**
+         * @brief Constructor.
+         *
+         * Sets up window and adds children.
+         * Adds listeners to encode and decode text
+         * areas.
+         */
+        MainWindow();
 
-class MainWindow : public Gtk::Window
-{
-public:
-  MainWindow();
-  virtual ~MainWindow();
+        /**
+         * @brief Destructor
+         */
+        virtual ~MainWindow() {}
 
-protected:
+    private:
 
-  void fill_buffers();
+        /// Container of the other elements in the window. 
+        Gtk::Box _box;
+
+        /// Text area for the encoded text.
+        EncodedTextArea _encodedTextArea;
+        
+        /// Text area for the decoded text.
+        DecodedTextArea _decodedTextArea;
+
+        /// Signal handler for window. 
+        MainSignalHandler _signalHandler;
   
-  //Signal handlers:
-  void on_button_quit();
-  void on_button_buffer1();
-  void on_button_buffer2();
-
-    //Child widgets:
-    Gtk::Box m_VBox;
-
-    
-    EncodedTextArea _encodedTextArea;
-
-    DecodedTextArea _decodedTextArea;
-
-    MainSignalHandler _signalHandler;
-  
-};
+    };
 
 }
 

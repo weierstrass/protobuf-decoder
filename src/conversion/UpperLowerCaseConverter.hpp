@@ -9,7 +9,6 @@ namespace protobuf_decoder
 class UpperLowerCaseConverter : public ConversionInterface
 {
 public:
-    UpperLowerCaseConverter() {}
 
     virtual std::string encode(const std::string& iDecodedString);
 
