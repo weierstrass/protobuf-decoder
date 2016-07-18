@@ -1,8 +1,8 @@
-
 #include "TextAreaBase.hpp"
 
 namespace protobuf_decoder
 {
+
     TextAreaBase::TextAreaBase() : Gtk::ScrolledWindow()
     {
         // Only show the scrollbars when they are necessary.
@@ -17,8 +17,9 @@ namespace protobuf_decoder
         _textView.get_buffer()->set_text(iText);
     }
 
-    std::string TextAreaBase::getText()
+    std::string TextAreaBase::getText() const
     {
         return _textView.get_buffer()->get_text();
     }
+
 }
