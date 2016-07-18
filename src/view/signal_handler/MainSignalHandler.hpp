@@ -8,30 +8,52 @@
 
 namespace protobuf_decoder
 {
-    
-class ConversionInterface;
-class EncodedTextArea;
-class DecodedTextArea;
-    
-class MainSignalHandler
-{
-public:
-    MainSignalHandler();
-    
-    virtual ~MainSignalHandler(){};
 
-    void onEncodedTextAreaChange(
-        EncodedTextArea* iEncodedTextArea,
-        DecodedTextArea* iDecodedTextArea);
+    class ConversionInterface;
+    class EncodedTextArea;
+    class DecodedTextArea;
 
-    void onDecodedTextAreaChange(
-        EncodedTextArea* iEncodedTextArea,
-        DecodedTextArea* iDecodedTextArea);
+    /**
+     * @brief Handles signals from Conversion window.
+     *
+     * There are signals triggered when either the encoded
+     * or decoded text are changed. The signal handler is
+     * responsible for calling the apropriate conversion
+     * algorithm through the converter member and updating
+     * the text areas.
+     */
+    class MainSignalHandler
+    {
+    public:
+        /**
+         * @brief Constructor
+         */
+        MainSignalHandler();
 
-private:    
-    std::unique_ptr<ConversionInterface> _converter;
-    
-};
+        /**
+         * @brief Callback function for encoded text change.
+         *
+         * @param EncodedTextArea The text area containing the encoded text.
+         * @param DecodedTextArea The text area containing the decoded text.
+         */
+        void onEncodedTextAreaChange(
+            EncodedTextArea* iEncodedTextArea,
+            DecodedTextArea* iDecodedTextArea);
+
+        /**
+         * @brief Callback function for decoded text change.
+         *
+         * @param EncodedTextArea The text area containing the encoded text.
+         * @param DecodedTextArea The text area containing the decoded text.
+         */
+        void onDecodedTextAreaChange(
+            EncodedTextArea* iEncodedTextArea,
+            DecodedTextArea* iDecodedTextArea);
+
+    private:
+        std::unique_ptr<ConversionInterface> _converter;
+
+    };
 
 }
 
