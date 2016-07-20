@@ -10,10 +10,8 @@ OBJS = $(addprefix $(OBJDIR)/, $(notdir $(CSRCS:.cpp=.o)))
 
 CXX = clang++
 
-CXXFLAGS = -g -std=c++11
-LDFLAGS = `pkg-config gtkmm-3.0 --cflags --libs` -I/usr/local/Cellar/boost/1.60.0_2/include
-
-LIBS =
+CXXFLAGS = -g -std=c++11 `pkg-config gtkmm-3.0 --cflags` -I/usr/local/Cellar/boost/1.60.0_2/include
+LDFLAGS = `pkg-config gtkmm-3.0 --libs`
 
 # Build rules
 .PHONY: print all clean test
@@ -24,17 +22,10 @@ $(OBJDIR):
 	mkdir $(OBJDIR)
 
 $(OBJDIR)/%.o: %.cpp
-	$(CXX) $(LDFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 a.out: $(OBJS)
-	$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) 
+	$(CXX) $(OBJS) $(LDFLAGS) 
 
 clean:
-	rm -f a.out $(OBJDIR)/*.o *.o
-
-print:
-	echo $(SRCS)
-	echo $(OBJS)
-
-#test:
-#	gcc -fverbose-asm -O2 -S -c test.c
+	rm -f a.out $(OBJDIR)/*.o *.o $(TEST_OBJ_DIR)/*.o
