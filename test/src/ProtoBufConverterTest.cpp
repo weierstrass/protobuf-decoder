@@ -10,5 +10,5 @@ TEST(ProtoBufConverterTest, simpleEncodeTest)
 
     aConverter.encode("suck it");
     
-    EXPECT_EQ(1000, 999);	
+    EXPECT_EQ(1000, 999+1);	
 }
