@@ -1,6 +1,14 @@
 #include "ProtoBufConverterTest.hpp"
 
-TEST(ProtoBufConverterTest, simple_test)
+#include "../../src/conversion/ProtoBufConverter.hpp"
+
+using namespace protobuf_decoder;
+
+TEST(ProtoBufConverterTest, simpleEncodeTest)
 {
-    EXPECT_EQ(1000, 999+1);	
+    ProtoBufConverter aConverter;
+
+    aConverter.encode("suck it");
+    
+    EXPECT_EQ(1000, 999);	
 }
