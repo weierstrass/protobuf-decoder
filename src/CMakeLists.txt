@@ -9,6 +9,10 @@ link_directories(
 include_directories(
     ${GTKMM_INCLUDE_DIRS}  )
 
+# set up protobuf
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
+
 # include all source files recursively
 file(GLOB_RECURSE SRC_FILES ./*.cpp)
 
@@ -17,4 +21,6 @@ add_executable(protobuf-decoder ${SRC_FILES})
 
 # link executable with libraries
 target_link_libraries(protobuf-decoder
-    ${GTKMM_LIBRARIES}  )
+    ${GTKMM_LIBRARIES}
+    ${PROTOBUF_LIBRARIES})
+    

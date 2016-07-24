@@ -13,8 +13,12 @@ link_directories(
 include_directories(
     ${GTKMM_INCLUDE_DIRS}  )
 
+# set up protobuf
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
+
 # include all source files recursively
-file(GLOB_RECURSE SRC_FILES src/*.cpp ../src/conversion/*.cpp)
+file(GLOB_RECURSE SRC_FILES src/*.cpp ../src/conversion/*.cpp )
 
 # define executable to build from source files
 add_executable(protobuf-decoder_test ${SRC_FILES})
@@ -22,4 +26,6 @@ add_executable(protobuf-decoder_test ${SRC_FILES})
 # link executable with libraries
 target_link_libraries(protobuf-decoder_test
     ${GTKMM_LIBRARIES}
-    ${GTEST_BOTH_LIBRARIES} )
+    ${GTEST_BOTH_LIBRARIES}
+    ${PROTOBUF_LIBRARIES}
+)
