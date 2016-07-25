@@ -40,6 +40,7 @@ namespace protobuf_decoder
 
     void ProtoBufConverter::setMessagePath(const std::string& iMessagePath)
     {
+        std::cout << iMessagePath << std::endl;
         _messagePath = iMessagePath;
         _messages = _messageBuilder.getMessages(_messagePath);
         _currentMessage = 0;
@@ -65,7 +66,6 @@ namespace protobuf_decoder
                
         return "Something went wrong...";
     }
-
 
     std::string ProtoBufConverter::convertBinaryToJson(const std::string& iBinaryString)
     {

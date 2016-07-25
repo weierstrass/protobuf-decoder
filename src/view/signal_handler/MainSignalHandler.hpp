@@ -50,6 +50,15 @@ namespace protobuf_decoder
             EncodedTextArea* iEncodedTextArea,
             DecodedTextArea* iDecodedTextArea);
 
+
+        void onDroppedFile(
+            const Glib::RefPtr<Gdk::DragContext>& context,
+            int x,
+            int y,
+            const Gtk::SelectionData& selection_data,
+            guint info,
+            guint time,
+            Gtk::Label* iLabel);
     private:
         std::unique_ptr<ConversionInterface> _converter;
 

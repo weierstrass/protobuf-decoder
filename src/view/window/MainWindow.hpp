@@ -50,6 +50,9 @@ namespace protobuf_decoder
         /// Text area for the decoded text.
         DecodedTextArea _decodedTextArea;
 
+        /// Label showing current message path.
+        Gtk::Label _messagePath;
+
         /// Signal handler for window. 
         MainSignalHandler _signalHandler;
   

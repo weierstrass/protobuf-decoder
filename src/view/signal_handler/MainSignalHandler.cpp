@@ -35,4 +35,27 @@ namespace protobuf_decoder
         iEncodedTextArea->setText(_converter->encode(iDecodedTextArea->getText()));
     }
 
+    
+    
+    void MainSignalHandler::onDroppedFile(
+        const Glib::RefPtr<Gdk::DragContext>& context,
+        int x,
+        int y,
+        const Gtk::SelectionData& selection_data,
+        guint info,
+        guint time,
+        Gtk::Label* iLabel)
+    {
+        std::cout << "file is in" << std::endl;
+
+         std::vector<Glib::ustring> file_list = selection_data.get_uris();
+
+         for (auto aFile : file_list)
+         {
+             aFile.erase(0,7);
+             std::cout << aFile << std::endl;
+             _converter->setMessagePath(aFile);
+             iLabel->set_text(aFile);
+         }
+    }
 }
