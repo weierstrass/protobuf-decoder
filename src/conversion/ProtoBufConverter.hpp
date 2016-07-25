@@ -1,7 +1,10 @@
 #ifndef PROTO_BUF_CONVERTER
 #define PROTO_BUF_CONVERTER
 
+#include <vector>
+
 #include "ConversionInterface.hpp"
+#include "helper/MessageBuilder.hpp"
 
 namespace google
 {
@@ -19,7 +22,8 @@ namespace protobuf_decoder
     class ProtoBufConverter : public ConversionInterface
     {
     public:
-
+        ProtoBufConverter() : _currentMessage(0) {}
+        
         virtual std::string encode(const std::string& iDecodedString);
 
         virtual std::string decode(const std::string& iEncodedString);
@@ -31,19 +35,29 @@ namespace protobuf_decoder
     private:
 
         /**
-         * @brief Returns binary representation of the decoded data.
+         * @brief Returns binary representation of json data.
          *
-         * Constructs a protbuf::Message and build the binary string
-         * from the json representation in iDecodedString.
-         *
-         * @param iDecodedString Decoded json representation.
+         * @param iJsonString Message serialized as json.
          * @return std::string Binary representation.
          */
-        std::string getBinaryDecodedString(const std::string& iDecodedString);
+        std::string convertJsonToBinary(const std::string& iJsonString);
 
-
+        /**
+         * @brief Returns json representation from binary data.
+         *
+         * @param iBinaryString Message serialized binary.
+         * @return std::string Json representation.
+         */
         std::string convertBinaryToJson(const std::string& iBinaryString);
+
         std::string _messagePath;
+
+        std::vector<google::protobuf::Message*> _messages;
+
+        google::protobuf::Message* _currentMessage;
+
+        MessageBuilder _messageBuilder;
+
     };
     
 }   

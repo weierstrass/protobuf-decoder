@@ -17,6 +17,9 @@ include_directories(
 find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 
+# BOOST
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+
 # include all source files recursively
 file(GLOB_RECURSE SRC_FILES src/*.cpp ../src/conversion/*.cpp )
 
@@ -28,4 +31,7 @@ target_link_libraries(protobuf-decoder_test
     ${GTKMM_LIBRARIES}
     ${GTEST_BOTH_LIBRARIES}
     ${PROTOBUF_LIBRARIES}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY}
+
 )
