@@ -18,11 +18,15 @@ namespace google
 
 namespace protobuf_decoder
 {
+    namespace algorithm
+    {
+        class ConversionAlgorithmInterface;
+    }
     
     class ProtoBufConverter : public ConversionInterface
     {
     public:
-        ProtoBufConverter() : _currentMessage(0) {}
+        ProtoBufConverter();
         
         virtual std::string encode(const std::string& iDecodedString);
 
@@ -35,20 +39,20 @@ namespace protobuf_decoder
     private:
 
         /**
-         * @brief Returns binary representation of json data.
+         * @brief Returns binary from human readable representation.
          *
-         * @param iJsonString Message serialized as json.
+         * @param iReadableString Human readable representation.
          * @return std::string Binary representation.
          */
-        std::string convertJsonToBinary(const std::string& iJsonString);
+        std::string convertReadableToBinary(const std::string& iReadableString);
 
         /**
-         * @brief Returns json representation from binary data.
+         * @brief Returns human readable representation from binary data.
          *
          * @param iBinaryString Message serialized binary.
-         * @return std::string Json representation.
+         * @return std::string Human readable representation.
          */
-        std::string convertBinaryToJson(const std::string& iBinaryString);
+        std::string convertBinaryToReadable(const std::string& iBinaryString);
 
         std::string _messagePath;
 
@@ -58,6 +62,7 @@ namespace protobuf_decoder
 
         MessageBuilder _messageBuilder;
 
+        std::shared_ptr<algorithm::ConversionAlgorithmInterface> _algorithm;
     };
     
 }   

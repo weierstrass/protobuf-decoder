@@ -2,7 +2,7 @@
 
 #include "helper/MessageBuilder.hpp"
 
-#include <boost/algorithm/hex.hpp>
+#include "algorithm/ConversionAlgorithm.hpp"
 
 #include <google/protobuf/io/tokenizer.h>
 
@@ -12,30 +12,28 @@ using std::string;
 
 namespace protobuf_decoder
 {
+    ProtoBufConverter::ProtoBufConverter()
+        : _currentMessage(0)
+        , _algorithm(algorithm::ConversionAlgorithm::Create("hex")) {}
 
-    std::string ProtoBufConverter::encode(const std::string& iDecodedString)
+    
+    std::string ProtoBufConverter::encode(const std::string& iReadableString)
     {
-        std::string aBinString, aEncodedString;
-
-        aBinString = convertJsonToBinary(iDecodedString);
+        std::string aBinaryString = convertReadableToBinary(iReadableString);
         
-        boost::algorithm::hex(aBinString, std::back_inserter(aEncodedString));
-        
-        return aEncodedString;
+        return _algorithm->encode(aBinaryString);
     }
 
-    std::string ProtoBufConverter::decode(const std::string& iEncodedString)
+    std::string ProtoBufConverter::decode(const std::string& iEncodedBinaryString)
     {
-        std::string aBinString;
+        std::string aBinaryString = _algorithm->decode(iEncodedBinaryString);
 
-        boost::algorithm::unhex(iEncodedString, std::back_inserter(aBinString));
-
-        return convertBinaryToJson(aBinString);
+        return convertBinaryToReadable(aBinaryString);
     }
 
-    void ProtoBufConverter::setEncodeAlgorithm(const std::string& iAlgoName)
+    void ProtoBufConverter::setEncodeAlgorithm(const std::string& iAlgorithmKey)
     {
-        
+        _algorithm = algorithm::ConversionAlgorithm::Create(iAlgorithmKey);
     }
 
     void ProtoBufConverter::setMessagePath(const std::string& iMessagePath)
@@ -46,12 +44,12 @@ namespace protobuf_decoder
         _currentMessage = 0;
     }
     
-    std::string ProtoBufConverter::convertJsonToBinary(const std::string& iJsonString)
+    std::string ProtoBufConverter::convertReadableToBinary(const std::string& iReadableString)
     {
         for (auto aMessage : _messages)
         {
-            // Populate message from json representation in input.
-            if (google::protobuf::TextFormat::ParseFromString(iJsonString, aMessage))
+            // Populate message from human readable representation in input.
+            if (google::protobuf::TextFormat::ParseFromString(iReadableString, aMessage))
             {
                 // Save message to use for decoding.
                 _currentMessage = aMessage;
@@ -67,7 +65,7 @@ namespace protobuf_decoder
         return "Something went wrong...";
     }
 
-    std::string ProtoBufConverter::convertBinaryToJson(const std::string& iBinaryString)
+    std::string ProtoBufConverter::convertBinaryToReadable(const std::string& iBinaryString)
     {
 
         if (_currentMessage)

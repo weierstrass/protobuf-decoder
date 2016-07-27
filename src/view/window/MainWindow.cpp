@@ -5,7 +5,7 @@ namespace protobuf_decoder
 
     MainWindow::MainWindow()
         : _box(Gtk::ORIENTATION_VERTICAL)
-        , _messagePath("Drop message files here.", true)
+        , _messagePath("Drop directory containing message files here.", true)
     {
         // Set up window.
         set_title("Protobuf decoder");

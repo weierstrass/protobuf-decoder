@@ -48,14 +48,15 @@ namespace protobuf_decoder
     {
         std::cout << "file is in" << std::endl;
 
-         std::vector<Glib::ustring> file_list = selection_data.get_uris();
+        std::vector<Glib::ustring> file_list = selection_data.get_uris();
 
-         for (auto aFile : file_list)
-         {
-             aFile.erase(0,7);
-             std::cout << aFile << std::endl;
-             _converter->setMessagePath(aFile);
-             iLabel->set_text(aFile);
-         }
+        for (auto aFile : file_list)
+        {
+            aFile.erase(0,7);
+            std::cout << aFile << std::endl;
+            _converter->setMessagePath(aFile);
+            iLabel->set_text(aFile);
+            return;
+        }
     }
 }

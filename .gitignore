@@ -17,3 +17,6 @@ Testing
 # binaries
 protobuf-decoder
 protobuf-decoder_test
+
+# other
+.DS_Store
