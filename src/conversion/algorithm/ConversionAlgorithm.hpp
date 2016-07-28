@@ -22,6 +22,8 @@ namespace protobuf_decoder
 
             virtual std::shared_ptr<ConversionAlgorithmInterface> create() = 0;
 
+            static std::map<std::string, std::string> GetAlgorithms();
+
         private:
             static std::map<std::string, ConversionAlgorithm*> &getExemplars();
         };

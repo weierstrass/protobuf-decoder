@@ -43,6 +43,11 @@ namespace protobuf_decoder
         _messages = _messageBuilder.getMessages(_messagePath);
         _currentMessage = 0;
     }
+
+    std::map<std::string, std::string> ProtoBufConverter::getAlgorithms()
+    {
+        return algorithm::ConversionAlgorithm::GetAlgorithms();
+    }
     
     std::string ProtoBufConverter::convertReadableToBinary(const std::string& iReadableString)
     {

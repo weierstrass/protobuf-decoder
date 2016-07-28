@@ -2,6 +2,7 @@
 #define _CONVERSION_ALGORITHM_INTERFACE_
 
 #include <string>
+#include <map>
 
 namespace protobuf_decoder
 {

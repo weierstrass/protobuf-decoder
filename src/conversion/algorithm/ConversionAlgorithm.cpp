@@ -45,7 +45,21 @@ namespace protobuf_decoder
         {
             static std::map<std::string, ConversionAlgorithm*> aExemplars;
             return aExemplars;
-        }            
+        }
+
+        
+        std::map<std::string, std::string> ConversionAlgorithm::GetAlgorithms()
+        {
+            std::map<std::string, std::string> aAlgorithms;
+
+            for(auto aAlgorithm : getExemplars())
+            {
+                aAlgorithms.insert(std::pair<std::string, std::string>
+                                   (aAlgorithm.first, aAlgorithm.second->getName()));
+            }
+
+            return aAlgorithms;
+        }
        
     }
 }

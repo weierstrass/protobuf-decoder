@@ -36,6 +36,8 @@ namespace protobuf_decoder
 
         virtual void setMessagePath(const std::string& iMessagePath);
 
+        virtual std::map<std::string, std::string> getAlgorithms();
+    
     private:
 
         /**

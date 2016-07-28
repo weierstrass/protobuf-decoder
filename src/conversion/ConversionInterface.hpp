@@ -2,6 +2,7 @@
 #define CONVERSION_INTERFACE_H
 
 #include <string>
+#include <map>
 
 namespace protobuf_decoder
 {
@@ -36,11 +37,11 @@ namespace protobuf_decoder
          *
          * The algorithm is implemented using the bla bla interface.
          *
-         * @param iAlgoName The key for the algorithm.
+         * @param iAlgorithmKey The key for the algorithm.
          *
          * @return void
          */
-        virtual void setEncodeAlgorithm(const std::string& iAlgoName) = 0;
+        virtual void setEncodeAlgorithm(const std::string& iAlgorithmKey) = 0;
 
         /**
          * @brief Sets the path to the proto grammar message files.
@@ -51,6 +52,14 @@ namespace protobuf_decoder
          */
         virtual void setMessagePath(const std::string& iMessagePath) = 0;
 
+
+        /**
+         * @brief Retrieve all possible algorithms.
+         *
+         * @return map<string, string> Key mapped to name for algorithms.
+         */
+        virtual std::map<std::string, std::string> getAlgorithms() = 0;
+    
     };
 
 }

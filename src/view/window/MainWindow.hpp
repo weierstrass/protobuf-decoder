@@ -41,6 +41,57 @@ namespace protobuf_decoder
 
     private:
 
+        /**
+         * @brief Callback function for encoded text change.
+         *
+         * @param EncodedTextArea The text area containing the encoded text.
+         * @param DecodedTextArea The text area containing the decoded text.
+         */
+        void onEncodedTextAreaChange(
+            EncodedTextArea* iEncodedTextArea,
+            DecodedTextArea* iDecodedTextArea);
+
+        /**
+         * @brief Callback function for decoded text change.
+         *
+         * @param EncodedTextArea The text area containing the encoded text.
+         * @param DecodedTextArea The text area containing the decoded text.
+         */
+        void onDecodedTextAreaChange(
+            EncodedTextArea* iEncodedTextArea,
+            DecodedTextArea* iDecodedTextArea);
+
+
+        void onDroppedFile(
+            const Glib::RefPtr<Gdk::DragContext>& context,
+            int x,
+            int y,
+            const Gtk::SelectionData& selection_data,
+            guint info,
+            guint time,
+            Gtk::Label* iLabel);
+
+        
+        void onAlgorithmChanged();
+
+        class ModelColumns : public Gtk::TreeModel::ColumnRecord
+        {
+        public:
+
+            ModelColumns() { add(_key); add(_name); }
+
+            Gtk::TreeModelColumn<Glib::ustring> _key;
+            Gtk::TreeModelColumn<Glib::ustring> _name;
+        };
+
+        ModelColumns _columns;
+
+        Gtk::ComboBox _comboBox;
+
+        Glib::RefPtr<Gtk::ListStore> _refTreeModel;
+
+
+        
         /// Container of the other elements in the window. 
         Gtk::Box _box;
 
@@ -54,7 +105,10 @@ namespace protobuf_decoder
         Gtk::Label _messagePath;
 
         /// Signal handler for window. 
-        MainSignalHandler _signalHandler;
+//        MainSignalHandler _signalHandler;
+
+        
+        std::unique_ptr<ConversionInterface> _converter;
   
     };
 

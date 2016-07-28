@@ -32,3 +32,10 @@ TEST_F(ConversionAlgorithmTest, hex)
     ASSERT_EQ(aEncodedString, aAlgorithm->encode(aDecodedString));
     ASSERT_EQ(aDecodedString, aAlgorithm->decode(aEncodedString));
 }
+
+TEST_F(ConversionAlgorithmTest, getAllAlgorithms)
+{
+    std::map<std::string, std::string> aAlgorithms = ConversionAlgorithm::GetAlgorithms();
+
+    ASSERT_GE(aAlgorithms.size(), size_t(1));
+}
