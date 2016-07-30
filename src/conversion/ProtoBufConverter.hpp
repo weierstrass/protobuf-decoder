@@ -22,7 +22,7 @@ namespace protobuf_decoder
     {
         class ConversionAlgorithmInterface;
     }
-    
+
     class ProtoBufConverter : public ConversionInterface
     {
     public:

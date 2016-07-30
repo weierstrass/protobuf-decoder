@@ -1,5 +1,6 @@
 #include "MainWindow.hpp"
 
+#include <exception>
 #include <iostream>
 
 #include "DecodedTextArea.hpp"
@@ -29,17 +30,8 @@ namespace protobuf_decoder
                       Gtk::DEST_DEFAULT_ALL,
                       Gdk::ACTION_COPY | Gdk::ACTION_MOVE);
 
-        // Register signal handler for file drop.
-        signal_drag_data_received().connect(
-            sigc::bind(
-                sigc::mem_fun(*this, &MainWindow::onDroppedFile),
-                &_messagePath
-            )
-        );
-
         // Set up message path label.
-        add(_box);
-
+        _messagePath.set_padding(20,20);
         
         // Add combo box for algorithm selection.
         _refTreeModel = Gtk::ListStore::create(_columns);
@@ -55,39 +47,35 @@ namespace protobuf_decoder
         
         //_comboBox.pack_start(_columns._key);
         _comboBox.pack_start(_columns._name);
+
+        _comboBox.set_margin_bottom(20);
         
-        
-        _box.pack_start(_messagePath);
-        _box.pack_start(_comboBox);
+        _box.pack_start(_messagePath, Gtk::PACK_SHRINK);
+        _box.pack_start(_comboBox, Gtk::PACK_SHRINK);
         _box.pack_start(_encodedTextArea);
         _box.pack_start(_decodedTextArea);
 
+       // Register signal handler for file drop.
+        signal_drag_data_received().connect(
+                sigc::mem_fun(*this, &MainWindow::onDroppedFile));
+        
         // Register signal handler for encoded text.
         _encodedTextArea._textView.get_buffer()->signal_end_user_action().connect(
-            sigc::bind(
-                sigc::mem_fun(*this, &MainWindow::onEncodedTextAreaChange),
-                &_encodedTextArea, &_decodedTextArea
-            )
-        );
+            sigc::mem_fun(*this, &MainWindow::onEncodedTextAreaChange));
 
         // Register signal handler for decoded text.
         _decodedTextArea._textView.get_buffer()->signal_end_user_action().connect(
-            sigc::bind(
-                sigc::mem_fun(*this, &MainWindow::onDecodedTextAreaChange),
-                &_encodedTextArea, &_decodedTextArea
-            )
-        );
+                sigc::mem_fun(*this, &MainWindow::onDecodedTextAreaChange));
 
         // Register signal handler for algorithm change.
         _comboBox.signal_changed().connect(
             sigc::mem_fun(*this, &MainWindow::onAlgorithmChanged));
 
-
+        add(_box);
         
         // Show widgets.
         show_all_children();
     }
-
         
     void MainWindow::onAlgorithmChanged()
     {
@@ -108,24 +96,45 @@ namespace protobuf_decoder
             std::cout << "invalid iter" << std::endl;       
     }
 
-   void MainWindow::onEncodedTextAreaChange(
-        EncodedTextArea* iEncodedTextArea,
-        DecodedTextArea* iDecodedTextArea)
+    void MainWindow::handleTextAreaChange(
+        TextAreaBase& iChangedTextArea,
+        TextAreaBase& iOtherTextArea)
+    {
+        std::string aConvertedString;
+
+        try
+        {
+            if (dynamic_cast<EncodedTextArea*>(&iChangedTextArea))
+            {
+                aConvertedString = _converter->decode(iChangedTextArea.getText());    
+            }
+            else
+            {
+                aConvertedString = _converter->encode(iChangedTextArea.getText());   
+            }
+        }
+        catch (const algorithm::AlgorithmException& iEx)
+        {
+            aConvertedString = iEx._text;
+        }
+        catch(...)
+        {
+            aConvertedString = "Unable to perform conversion, not sure why :/";
+        }
+        
+        iOtherTextArea.setText(aConvertedString);
+    }
+    
+    void MainWindow::onEncodedTextAreaChange()
     {
         std::cout << "Encoded has changed" << std::endl;
-
-        // Encoded text has changed -> update decoded text.
-        iDecodedTextArea->setText(_converter->decode(iEncodedTextArea->getText()));
+        handleTextAreaChange(_encodedTextArea, _decodedTextArea);
     }
 
-    void MainWindow::onDecodedTextAreaChange(
-        EncodedTextArea* iEncodedTextArea,
-        DecodedTextArea* iDecodedTextArea)
+    void MainWindow::onDecodedTextAreaChange()
     {
         std::cout << "Decoded has changed" << std::endl;
-
-        // Decoded text has changed -> update encoded text.
-        iEncodedTextArea->setText(_converter->encode(iDecodedTextArea->getText()));
+        handleTextAreaChange(_decodedTextArea, _encodedTextArea);
     }    
     
     void MainWindow::onDroppedFile(
@@ -134,8 +143,7 @@ namespace protobuf_decoder
         int y,
         const Gtk::SelectionData& selection_data,
         guint info,
-        guint time,
-        Gtk::Label* iLabel)
+        guint time)
     {
         std::cout << "file is in" << std::endl;
 
@@ -146,7 +154,7 @@ namespace protobuf_decoder
             aFile.erase(0,7);
             std::cout << aFile << std::endl;
             _converter->setMessagePath(aFile);
-            iLabel->set_text(aFile);
+            _messagePath.set_text(aFile);
             return;
         }
     }

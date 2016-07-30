@@ -19,8 +19,20 @@ namespace protobuf_decoder
         std::string HexAlgorithm::decode(const std::string& iString)
         {
             std::string aDecodedString;
-            boost::algorithm::unhex(iString, std::back_inserter(aDecodedString));
 
+            try
+            {
+                boost::algorithm::unhex(iString, std::back_inserter(aDecodedString));
+            }
+            catch(const boost::algorithm::non_hex_input& iEx)
+            {
+                throw AlgorithmException("Non hex character detected in input.");
+            }
+            catch(const boost::algorithm::not_enough_input& iEx)
+            {
+                throw AlgorithmException("An even number of charcters is needed.");
+            }
+            
             return aDecodedString;
         }
 

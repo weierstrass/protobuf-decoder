@@ -4,6 +4,7 @@
 
 using protobuf_decoder::algorithm::ConversionAlgorithm;
 using protobuf_decoder::algorithm::ConversionAlgorithmInterface;
+using protobuf_decoder::algorithm::AlgorithmException;
 
 TEST_F(ConversionAlgorithmTest, creation)
 {
@@ -26,8 +27,8 @@ TEST_F(ConversionAlgorithmTest, hex)
     const std::string aDecodedString = "hex is the shit.";
 
     std::shared_ptr<ConversionAlgorithmInterface> aAlgorithm = ConversionAlgorithm::Create("hex");
-
-       ASSERT_TRUE(aAlgorithm.get() != 0);
+    
+    ASSERT_TRUE(aAlgorithm.get() != 0);
 
     ASSERT_EQ(aEncodedString, aAlgorithm->encode(aDecodedString));
     ASSERT_EQ(aDecodedString, aAlgorithm->decode(aEncodedString));
@@ -38,4 +39,32 @@ TEST_F(ConversionAlgorithmTest, getAllAlgorithms)
     std::map<std::string, std::string> aAlgorithms = ConversionAlgorithm::GetAlgorithms();
 
     ASSERT_GE(aAlgorithms.size(), size_t(1));
+}
+
+TEST_F(ConversionAlgorithmTest, noHexChar)
+{
+    try
+    {
+        ConversionAlgorithm::Create("hex")->decode("HEXZOR");
+        FAIL();
+    }
+    catch(const AlgorithmException& iEx)
+    {
+        ASSERT_GE(iEx._text.size(), 1);
+    }
+    catch(...) { FAIL(); }
+}
+
+TEST_F(ConversionAlgorithmTest, oddNumberOfChars)
+{
+    try
+    {
+        ConversionAlgorithm::Create("hex")->decode("ODD");
+        FAIL();
+    }
+    catch(const AlgorithmException& iEx)
+    {
+        ASSERT_GE(iEx._text.size(), 1);
+    }
+    catch(...) { FAIL(); }
 }

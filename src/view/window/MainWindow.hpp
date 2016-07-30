@@ -1,15 +1,15 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+#include <gtkmm.h>
+
 #include "EncodedTextArea.hpp"
 #include "DecodedTextArea.hpp"
 
-#include "../signal_handler/MainSignalHandler.hpp"
-
-#include <gtkmm.h>
+#include "../../conversion/ConversionInterface.hpp"
 
 namespace protobuf_decoder
-{
+{   
     /**
      * @brief Window for the conversion proccess.
      *
@@ -43,24 +43,13 @@ namespace protobuf_decoder
 
         /**
          * @brief Callback function for encoded text change.
-         *
-         * @param EncodedTextArea The text area containing the encoded text.
-         * @param DecodedTextArea The text area containing the decoded text.
          */
-        void onEncodedTextAreaChange(
-            EncodedTextArea* iEncodedTextArea,
-            DecodedTextArea* iDecodedTextArea);
+        void onEncodedTextAreaChange();
 
         /**
          * @brief Callback function for decoded text change.
-         *
-         * @param EncodedTextArea The text area containing the encoded text.
-         * @param DecodedTextArea The text area containing the decoded text.
          */
-        void onDecodedTextAreaChange(
-            EncodedTextArea* iEncodedTextArea,
-            DecodedTextArea* iDecodedTextArea);
-
+        void onDecodedTextAreaChange();
 
         void onDroppedFile(
             const Glib::RefPtr<Gdk::DragContext>& context,
@@ -68,9 +57,13 @@ namespace protobuf_decoder
             int y,
             const Gtk::SelectionData& selection_data,
             guint info,
-            guint time,
-            Gtk::Label* iLabel);
+            guint time);
 
+
+        void handleTextAreaChange(
+        TextAreaBase& iChangedTextArea,
+        TextAreaBase& iOtherTextArea);
+    
         
         void onAlgorithmChanged();
 
@@ -89,8 +82,6 @@ namespace protobuf_decoder
         Gtk::ComboBox _comboBox;
 
         Glib::RefPtr<Gtk::ListStore> _refTreeModel;
-
-
         
         /// Container of the other elements in the window. 
         Gtk::Box _box;
@@ -104,10 +95,6 @@ namespace protobuf_decoder
         /// Label showing current message path.
         Gtk::Label _messagePath;
 
-        /// Signal handler for window. 
-//        MainSignalHandler _signalHandler;
-
-        
         std::unique_ptr<ConversionInterface> _converter;
   
     };
