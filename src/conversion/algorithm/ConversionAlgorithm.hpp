@@ -2,7 +2,7 @@
 #define _CONVERSION_ALGORITHM_
 
 #include "ConversionAlgorithmInterface.hpp"
-#include "AlgorithmException.hpp"
+#include "../ConversionException.hpp"
 
 #include <memory>
 #include <string>

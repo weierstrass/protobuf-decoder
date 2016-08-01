@@ -67,7 +67,7 @@ namespace protobuf_decoder
             }
         }
                
-        return "Something went wrong...";
+        throw ConversionException("Unable to parse readable data, please check input and or grammar.");
     }
 
     std::string ProtoBufConverter::convertBinaryToReadable(const std::string& iBinaryString)
@@ -94,7 +94,7 @@ namespace protobuf_decoder
             }
         }
         
-        return "Something went wrong...";
+        throw ConversionException("Unable to convert binary to readable, please check input and or grammar.");
             
     }
 }

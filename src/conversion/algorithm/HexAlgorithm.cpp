@@ -26,11 +26,11 @@ namespace protobuf_decoder
             }
             catch(const boost::algorithm::non_hex_input& iEx)
             {
-                throw AlgorithmException("Non hex character detected in input.");
+                throw ConversionException("Non hex character detected in input.");
             }
             catch(const boost::algorithm::not_enough_input& iEx)
             {
-                throw AlgorithmException("An even number of charcters is needed.");
+                throw ConversionException("An even number of charcters is needed.");
             }
             
             return aDecodedString;

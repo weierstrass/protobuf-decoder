@@ -4,7 +4,7 @@
 
 using protobuf_decoder::algorithm::ConversionAlgorithm;
 using protobuf_decoder::algorithm::ConversionAlgorithmInterface;
-using protobuf_decoder::algorithm::AlgorithmException;
+using protobuf_decoder::ConversionException;
 
 TEST_F(ConversionAlgorithmTest, creation)
 {
@@ -18,7 +18,6 @@ TEST_F(ConversionAlgorithmTest, nonExistingKey)
 std::shared_ptr<ConversionAlgorithmInterface> aAlgorithm = ConversionAlgorithm::Create("i hope no one will ever use this as key...");
 
     ASSERT_TRUE(aAlgorithm.get() == 0);
-    
 }
 
 TEST_F(ConversionAlgorithmTest, hex)
@@ -48,7 +47,7 @@ TEST_F(ConversionAlgorithmTest, noHexChar)
         ConversionAlgorithm::Create("hex")->decode("HEXZOR");
         FAIL();
     }
-    catch(const AlgorithmException& iEx)
+    catch(const ConversionException& iEx)
     {
         ASSERT_GE(iEx._text.size(), 1);
     }
@@ -62,7 +61,7 @@ TEST_F(ConversionAlgorithmTest, oddNumberOfChars)
         ConversionAlgorithm::Create("hex")->decode("ODD");
         FAIL();
     }
-    catch(const AlgorithmException& iEx)
+    catch(const ConversionException& iEx)
     {
         ASSERT_GE(iEx._text.size(), 1);
     }

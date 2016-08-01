@@ -1,10 +1,19 @@
 #include "ProtoBufConverterTest.hpp"
 
 #include "../../src/conversion/ProtoBufConverter.hpp"
+#include "../../src/conversion/ConversionException.hpp"
 
 using namespace protobuf_decoder;
 using namespace std;
 
+
+/**
+ * @brief Helper for doing a encode-decode test.
+ *
+ * @param iMessagePath The path to the message files relative repo root.
+ * @param iEncodedString Expected encoded data.
+ * @param iDecodedString Expected decoded data.
+ */
 static void TestEncodeDecode(
     const std::string& iMessagePath,
     const std::string& iEncodedString,
@@ -19,9 +28,7 @@ static void TestEncodeDecode(
 }
 
 /**
- * Test that handling of one single message file.
- *
- *
+ * Single file in path should be handled.
  */
 TEST(ProtoBufConverterTest, singleFileEncoding)
 {
@@ -32,7 +39,7 @@ TEST(ProtoBufConverterTest, singleFileEncoding)
 }
 
 /**
- * Test that two message files are correctly handled.
+ * Two (unrelated) files in the same path should both be taken into acount.
  *
  * It should be possible to convert either of the grammars defined
  * in the files. The messages in the files do not reference to each
@@ -52,6 +59,25 @@ TEST(ProtoBufConverterTest, multiFileConversion2)
     TestEncodeDecode( // second file
         "test/data/message_multi_files",
         "08D209",
-        "second: 1234\n");
+        "second: 1234\n");    
+}
+
+/**
+ * The converter should throw ConversionException in case of invalid
+ * message path.
+ */
+TEST(ProtoBufConverterTest, unableParseReadable)
+{
+    ProtoBufConverter aConverter;
+    aConverter.setMessagePath("invalid path");
     
+    try
+    {
+        aConverter.decode("DEADBEEF");
+    }
+    catch(ConversionException& iEx)
+    {
+        ASSERT_GE(iEx._text.size(), 1);
+    }
+    catch(...) { FAIL(); }
 }

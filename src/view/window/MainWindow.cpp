@@ -113,7 +113,7 @@ namespace protobuf_decoder
                 aConvertedString = _converter->encode(iChangedTextArea.getText());   
             }
         }
-        catch (const algorithm::AlgorithmException& iEx)
+        catch (const ConversionException& iEx)
         {
             aConvertedString = iEx._text;
         }
