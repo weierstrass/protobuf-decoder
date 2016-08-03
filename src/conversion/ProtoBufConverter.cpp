@@ -48,6 +48,16 @@ namespace protobuf_decoder
     {
         return algorithm::ConversionAlgorithm::GetAlgorithms();
     }
+
+    std::vector<std::string> ProtoBufConverter::getMessages()
+    {
+        std::vector<std::string> aMessageTypes(_messages.size());
+
+        std::transform(_messages.begin(), _messages.end(), aMessageTypes.begin(),
+                       mem_fun(&google::protobuf::Message::GetTypeName));
+
+        return aMessageTypes;
+    }
     
     std::string ProtoBufConverter::convertReadableToBinary(const std::string& iReadableString)
     {
@@ -67,7 +77,8 @@ namespace protobuf_decoder
             }
         }
                
-        throw ConversionException("Unable to parse readable data, please check input and or grammar.");
+        throw ConversionException(
+            "Unable to parse readable data, please check input and or grammar.");
     }
 
     std::string ProtoBufConverter::convertBinaryToReadable(const std::string& iBinaryString)
@@ -94,7 +105,8 @@ namespace protobuf_decoder
             }
         }
         
-        throw ConversionException("Unable to convert binary to readable, please check input and or grammar.");
+        throw ConversionException(
+            "Unable to convert binary to readable, please check input and or grammar.");
             
     }
 }

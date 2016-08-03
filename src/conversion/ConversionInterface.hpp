@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 namespace protobuf_decoder
 {
@@ -59,7 +60,21 @@ namespace protobuf_decoder
          * @return map<string, string> Key mapped to name for algorithms.
          */
         virtual std::map<std::string, std::string> getAlgorithms() = 0;
-    
+        //                   ^            ^
+        //                  key         name
+
+        /**
+         * @brief Retrieves all possible messages.
+         *
+         * Name is guaranteed to be unique and can be used to set the
+         * message type to use when doing conversion through
+         * setMessage(const string&).
+         *
+         * @return vector<string> Name for messages.
+         */
+        virtual std::vector<std::string> getMessages() = 0;
+        //                      ^
+        //                     name
     };
 
 }

@@ -45,13 +45,16 @@ namespace protobuf_decoder
             _comboBox.set_active(row);
         }
         
-        //_comboBox.pack_start(_columns._key);
         _comboBox.pack_start(_columns._name);
 
         _comboBox.set_margin_bottom(20);
+
+        // Set up combo box for message selection.
+        
         
         _box.pack_start(_messagePath, Gtk::PACK_SHRINK);
         _box.pack_start(_comboBox, Gtk::PACK_SHRINK);
+        _box.pack_start(_messageComboBox, Gtk::PACK_SHRINK);
         _box.pack_start(_encodedTextArea);
         _box.pack_start(_decodedTextArea);
 
@@ -157,6 +160,8 @@ namespace protobuf_decoder
             _messagePath.set_text(aFile);
             return;
         }
+
+        _messageComboBox = ValueComboBox(_converter->getMessages());
     }
     
 }

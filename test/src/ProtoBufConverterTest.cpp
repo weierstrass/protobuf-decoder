@@ -81,3 +81,14 @@ TEST(ProtoBufConverterTest, unableParseReadable)
     }
     catch(...) { FAIL(); }
 }
+
+TEST(ProtoBufConverterTest, retrievePossibleMessages)
+{
+    ProtoBufConverter aConverter;
+    aConverter.setMessagePath("test/data/message_multi_files");
+
+    ASSERT_EQ(size_t(2), aConverter.getMessages().size());
+
+    ASSERT_EQ("First", aConverter.getMessages().front());
+    
+}

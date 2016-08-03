@@ -1,3 +1,4 @@
+
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
@@ -5,6 +6,7 @@
 
 #include "EncodedTextArea.hpp"
 #include "DecodedTextArea.hpp"
+#include "ValueComboBox.hpp"
 
 #include "../../conversion/ConversionInterface.hpp"
 
@@ -59,13 +61,9 @@ namespace protobuf_decoder
             guint info,
             guint time);
 
-
-        void handleTextAreaChange(
-        TextAreaBase& iChangedTextArea,
-        TextAreaBase& iOtherTextArea);
-    
-        
         void onAlgorithmChanged();
+        
+        void handleTextAreaChange(TextAreaBase& iChangedTextArea, TextAreaBase& iOtherTextArea);
 
         class ModelColumns : public Gtk::TreeModel::ColumnRecord
         {
@@ -94,6 +92,9 @@ namespace protobuf_decoder
 
         /// Label showing current message path.
         Gtk::Label _messagePath;
+
+        /// Combobox containing the possible message choices.
+        ValueComboBox _messageComboBox;
 
         std::unique_ptr<ConversionInterface> _converter;
   
