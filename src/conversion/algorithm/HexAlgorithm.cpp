@@ -6,7 +6,7 @@ namespace protobuf_decoder
 {
     namespace algorithm
     {
-        REGISTER_ALGORITHM(HexAlgorithm, "hex");
+        REGISTER_ALGORITHM(HexAlgorithm, "HEX");
         
         std::string HexAlgorithm::encode(const std::string& iString)
         {
@@ -34,11 +34,6 @@ namespace protobuf_decoder
             }
             
             return aDecodedString;
-        }
-
-        std::string HexAlgorithm::getName()
-        {
-            return "HEX";
         }
 
     }

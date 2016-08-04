@@ -14,7 +14,7 @@ namespace protobuf_decoder
 {
     ProtoBufConverter::ProtoBufConverter()
         : _currentMessage(0)
-        , _algorithm(algorithm::ConversionAlgorithm::Create("hex")) {}
+        , _algorithm(algorithm::ConversionAlgorithm::Create("HEX")) {}
 
     
     std::string ProtoBufConverter::encode(const std::string& iReadableString)
@@ -44,6 +44,15 @@ namespace protobuf_decoder
         _currentMessage = 0;
     }
 
+    std::string ProtoBufConverter::getMessageType()
+    {
+        if (_currentMessage)
+        {
+            return _currentMessage->GetTypeName();
+        }
+
+        return "";
+    }
     
     void ProtoBufConverter::setMessageType(const std::string& iMessageType)
     {
@@ -58,7 +67,6 @@ namespace protobuf_decoder
         }
     }
 
-    
     std::map<std::string, std::string> ProtoBufConverter::getAlgorithms()
     {
         return algorithm::ConversionAlgorithm::GetAlgorithms();
@@ -124,6 +132,8 @@ namespace protobuf_decoder
             // Populate message from binary string.
             if (aMessage->ParseFromString(iBinaryString))
             {                
+                _currentMessage = aMessage;
+                
                 // Serialize json representation of string.
                 std::string aJsonString;
                 google::protobuf::TextFormat::PrintToString(*aMessage, &aJsonString);

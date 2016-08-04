@@ -23,6 +23,11 @@ namespace protobuf_decoder
 
             virtual ~BaseAlgorithm() {}
 
+            std::string getName()
+            {
+                return _key;
+            }
+            
             std::shared_ptr<ConversionAlgorithmInterface> create()
             {
                 std::cout << "new obj" << std::endl;

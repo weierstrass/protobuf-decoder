@@ -67,22 +67,9 @@ namespace protobuf_decoder
         
         void handleTextAreaChange(TextAreaBase& iChangedTextArea, TextAreaBase& iOtherTextArea);
 
-        class ModelColumns : public Gtk::TreeModel::ColumnRecord
-        {
-        public:
+        /// Combo box for algorithm selection.
+        Gtk::ComboBoxText _comboBox;
 
-            ModelColumns() { add(_key); add(_name); }
-
-            Gtk::TreeModelColumn<Glib::ustring> _key;
-            Gtk::TreeModelColumn<Glib::ustring> _name;
-        };
-
-        ModelColumns _columns;
-
-        Gtk::ComboBox _comboBox;
-
-        Glib::RefPtr<Gtk::ListStore> _refTreeModel;
-        
         /// Container of the other elements in the window. 
         Gtk::Box _box;
 
@@ -97,6 +84,9 @@ namespace protobuf_decoder
 
         /// Combobox containing the possible message choices.
         ValueComboBox _messageComboBox;
+
+        /// Label for error messages.
+        Gtk::Label _errorLabel;
 
         std::unique_ptr<ConversionInterface> _converter;
   

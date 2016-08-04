@@ -24,6 +24,8 @@ namespace protobuf_decoder
 
         std::string getActive();
 
+        void setActive(const std::string& iValue);
+
         ModelColumns _columns;
 
         Glib::RefPtr<Gtk::ListStore> _refTreeModel;

@@ -8,7 +8,7 @@ using namespace std;
 
 
 /**
- * @brief Helper for doing a encode-decode test.
+ * @brief Helper for doing an encode-decode test.
  *
  * @param iMessagePath The path to the message files relative repo root.
  * @param iEncodedString Expected encoded data.
@@ -82,6 +82,10 @@ TEST(ProtoBufConverterTest, unableParseReadable)
     catch(...) { FAIL(); }
 }
 
+/**
+ * The converter should detect and be able to return all valid
+ * message files in the folder given in input.
+ */
 TEST(ProtoBufConverterTest, retrievePossibleMessages)
 {
     ProtoBufConverter aConverter;
@@ -90,5 +94,26 @@ TEST(ProtoBufConverterTest, retrievePossibleMessages)
     ASSERT_EQ(size_t(2), aConverter.getMessages().size());
 
     ASSERT_EQ("First", aConverter.getMessages().front());
+}
+
+/**
+ * The converter should return the message used after a conversion.
+ */
+TEST(ProtoBufConverterTest, getMessageTypeEncode) // Encode
+{
+    ProtoBufConverter aConverter;
+    aConverter.setMessagePath("test/data/message_single_file");
+
+    aConverter.encode("name: \"andreas\"\nage: 23\n");
     
+    ASSERT_EQ("Person", aConverter.getMessageType());
+}
+TEST(ProtoBufConverterTest, getMessageTypeDecode) // Decode
+{
+    ProtoBufConverter aConverter;
+    aConverter.setMessagePath("test/data/message_single_file");
+
+    aConverter.decode("0A07616E64726561731017");
+    
+    ASSERT_EQ("Person", aConverter.getMessageType());
 }

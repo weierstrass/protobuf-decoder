@@ -8,7 +8,7 @@ using protobuf_decoder::ConversionException;
 
 TEST_F(ConversionAlgorithmTest, creation)
 {
-    std::shared_ptr<ConversionAlgorithmInterface> aAlgorithm = ConversionAlgorithm::Create("hex");
+    std::shared_ptr<ConversionAlgorithmInterface> aAlgorithm = ConversionAlgorithm::Create("HEX");
 
     ASSERT_TRUE(aAlgorithm.get() != 0);
 }
@@ -25,7 +25,7 @@ TEST_F(ConversionAlgorithmTest, hex)
     const std::string aEncodedString = "6865782069732074686520736869742E";
     const std::string aDecodedString = "hex is the shit.";
 
-    std::shared_ptr<ConversionAlgorithmInterface> aAlgorithm = ConversionAlgorithm::Create("hex");
+    std::shared_ptr<ConversionAlgorithmInterface> aAlgorithm = ConversionAlgorithm::Create("HEX");
     
     ASSERT_TRUE(aAlgorithm.get() != 0);
 
@@ -44,7 +44,7 @@ TEST_F(ConversionAlgorithmTest, noHexChar)
 {
     try
     {
-        ConversionAlgorithm::Create("hex")->decode("HEXZOR");
+        ConversionAlgorithm::Create("HEX")->decode("HEXZOR");
         FAIL();
     }
     catch(const ConversionException& iEx)
@@ -58,7 +58,7 @@ TEST_F(ConversionAlgorithmTest, oddNumberOfChars)
 {
     try
     {
-        ConversionAlgorithm::Create("hex")->decode("ODD");
+        ConversionAlgorithm::Create("HEX")->decode("ODD");
         FAIL();
     }
     catch(const ConversionException& iEx)

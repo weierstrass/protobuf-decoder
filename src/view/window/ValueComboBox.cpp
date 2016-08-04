@@ -56,4 +56,20 @@ namespace protobuf_decoder
 
         return "";
     }
+
+    void ValueComboBox::setActive(const std::string& iValue)
+    {
+        std::cout << "set active: " << iValue << std::endl;
+        for (auto aRow : _refTreeModel->children())
+        {
+            
+        std::cout << "set active: " << iValue << std::endl;
+            if (aRow[_columns._name] == iValue)
+            {
+                
+        std::cout << "set active: " << iValue << std::endl;
+                set_active(*aRow);
+            }
+        }
+    }
 }

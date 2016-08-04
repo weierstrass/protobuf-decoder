@@ -56,6 +56,8 @@ namespace protobuf_decoder
 
         virtual void setMessageType(const std::string& iMessageType) = 0;
 
+        virtual std::string getMessageType() = 0;
+        
         /**
          * @brief Retrieve all possible algorithms.
          *

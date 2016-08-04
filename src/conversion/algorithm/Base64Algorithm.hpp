@@ -18,7 +18,6 @@ namespace protobuf_decoder
 
             virtual std::string decode(const std::string& iString);
 
-            virtual std::string getName();
         };
         
     }

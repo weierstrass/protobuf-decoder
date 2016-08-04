@@ -5,7 +5,7 @@ namespace protobuf_decoder
 {
     namespace algorithm
     {
-        REGISTER_ALGORITHM(Base64Algorithm, "base64");
+        REGISTER_ALGORITHM(Base64Algorithm, "BASE 64");
         
         std::string Base64Algorithm::encode(const std::string& iString)
         {
@@ -16,10 +16,6 @@ namespace protobuf_decoder
         {
             return "BASE 64 decode";
         }
-
-        std::string Base64Algorithm::getName()
-        {
-            return "BASE 64";
-        }
+        
     }
 }

@@ -34,28 +34,29 @@ namespace protobuf_decoder
         _messagePath.set_padding(20,20);
         
         // Add combo box for algorithm selection.
-        _refTreeModel = Gtk::ListStore::create(_columns);
-        _comboBox.set_model(_refTreeModel);
+//        _refTreeModel = Gtk::ListStore::create(_columns);
+        //      _comboBox.set_model(_refTreeModel);
         
         for (auto aAlgorithm : algorithm::ConversionAlgorithm::GetAlgorithms())
         {
-            Gtk::TreeModel::Row row = *(_refTreeModel->append());
-            row[_columns._key] = aAlgorithm.first;
-            row[_columns._name] = aAlgorithm.second;
-            _comboBox.set_active(row);
+            // Gtk::TreeModel::Row row = *(_refTreeModel->append());
+            // row[_columns._key] = aAlgorithm.first;
+            // row[_columns._name] = aAlgorithm.second;
+            _comboBox.append(aAlgorithm.second);
+            _comboBox.set_active_text(aAlgorithm.second);
         }
         
-        _comboBox.pack_start(_columns._name);
+        //_comboBox.pack_start(_columns._name);
 
         _comboBox.set_margin_bottom(20);
         _messageComboBox.set_margin_bottom(20);
-
-        // Set up combo box for message selection.
+        _errorLabel.set_margin_bottom(20);
         
         
         _box.pack_start(_messagePath, Gtk::PACK_SHRINK);
-        _box.pack_start(_comboBox, Gtk::PACK_SHRINK);
         _box.pack_start(_messageComboBox, Gtk::PACK_SHRINK);
+        _box.pack_start(_comboBox, Gtk::PACK_SHRINK);
+        _box.pack_start(_errorLabel, Gtk::PACK_SHRINK);
         _box.pack_start(_encodedTextArea);
         _box.pack_start(_decodedTextArea);
 
@@ -87,35 +88,26 @@ namespace protobuf_decoder
         
     void MainWindow::onAlgorithmChanged()
     {
-        Gtk::TreeModel::iterator iter = _comboBox.get_active();
-        if(iter)
-        {
-            Gtk::TreeModel::Row row = *iter;
-            if(row)
-            {
-                
-                Glib::ustring aKey = row[_columns._key];
-                _converter->setEncodeAlgorithm(aKey);
-
-                std::cout << " Changing algorithm: " << aKey << std::endl;
-            }
-        }
-        else
-            std::cout << "invalid iter" << std::endl;       
+        _converter->setEncodeAlgorithm(_comboBox.get_active_text());  
     }
 
     void MainWindow::onMessageTypeChanged()
     {
+        std::cout << "Changing message type" << std::endl;
+        
         _converter->setMessageType(_messageComboBox.getActive());
 
-        onEncodedTextAreaChange();
-        onDecodedTextAreaChange();
+        //onEncodedTextAreaChange();
+        //onDecodedTextAreaChange();
     }
     
     void MainWindow::handleTextAreaChange(
         TextAreaBase& iChangedTextArea,
         TextAreaBase& iOtherTextArea)
     {
+        // Clear errorLabel
+        _errorLabel.set_text("");
+        
         std::string aConvertedString;
 
         try
@@ -128,17 +120,20 @@ namespace protobuf_decoder
             {
                 aConvertedString = _converter->encode(iChangedTextArea.getText());   
             }
+
+            _messageComboBox.setActive(_converter->getMessageType());
+            
+            iOtherTextArea.setText(aConvertedString);
+   
         }
         catch (const ConversionException& iEx)
         {
-            aConvertedString = iEx._text;
+            _errorLabel.set_text(iEx._text);
         }
         catch(...)
         {
-            aConvertedString = "Unable to perform conversion, not sure why :/";
+            _errorLabel.set_text("Unable to perform conversion, not sure why :/");
         }
-        
-        iOtherTextArea.setText(aConvertedString);
     }
     
     void MainWindow::onEncodedTextAreaChange()
