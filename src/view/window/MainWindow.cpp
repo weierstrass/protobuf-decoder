@@ -20,8 +20,8 @@ namespace protobuf_decoder
         // Set up window.
         set_title("Protobuf decoder");
         set_border_width(5);
-        set_default_size(400, 200);
-
+        set_default_size(1200, 700);
+        
 
         // Setup file drop on the window
         std::vector<Gtk::TargetEntry> aListTargets;
@@ -33,20 +33,11 @@ namespace protobuf_decoder
         // Set up message path label.
         _messagePath.set_padding(20,20);
         
-        // Add combo box for algorithm selection.
-//        _refTreeModel = Gtk::ListStore::create(_columns);
-        //      _comboBox.set_model(_refTreeModel);
-        
         for (auto aAlgorithm : algorithm::ConversionAlgorithm::GetAlgorithms())
         {
-            // Gtk::TreeModel::Row row = *(_refTreeModel->append());
-            // row[_columns._key] = aAlgorithm.first;
-            // row[_columns._name] = aAlgorithm.second;
             _comboBox.append(aAlgorithm.second);
             _comboBox.set_active_text(aAlgorithm.second);
         }
-        
-        //_comboBox.pack_start(_columns._name);
 
         _comboBox.set_margin_bottom(20);
         _messageComboBox.set_margin_bottom(20);

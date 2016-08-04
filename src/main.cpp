@@ -5,12 +5,8 @@
 
 int main(int argc, char *argv[])
 {
-    std::cout << "hej man" << "\n";
-
-    auto app =
-        Gtk::Application::create(argc, argv,
-                                 "org.gtkmm.examples.base");
-
+    // Instantiate a new GTK application.
+    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base");
 
     protobuf_decoder::MainWindow window;
 
