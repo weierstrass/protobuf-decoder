@@ -62,6 +62,8 @@ namespace protobuf_decoder
             guint time);
 
         void onAlgorithmChanged();
+
+        void onMessageTypeChanged();
         
         void handleTextAreaChange(TextAreaBase& iChangedTextArea, TextAreaBase& iOtherTextArea);
 

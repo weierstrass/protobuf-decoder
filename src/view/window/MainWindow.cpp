@@ -48,6 +48,7 @@ namespace protobuf_decoder
         _comboBox.pack_start(_columns._name);
 
         _comboBox.set_margin_bottom(20);
+        _messageComboBox.set_margin_bottom(20);
 
         // Set up combo box for message selection.
         
@@ -74,6 +75,10 @@ namespace protobuf_decoder
         _comboBox.signal_changed().connect(
             sigc::mem_fun(*this, &MainWindow::onAlgorithmChanged));
 
+        // Register signal handler for message type change.
+        _messageComboBox.signal_changed().connect(
+            sigc::mem_fun(*this, &MainWindow::onMessageTypeChanged));
+        
         add(_box);
         
         // Show widgets.
@@ -99,6 +104,14 @@ namespace protobuf_decoder
             std::cout << "invalid iter" << std::endl;       
     }
 
+    void MainWindow::onMessageTypeChanged()
+    {
+        _converter->setMessageType(_messageComboBox.getActive());
+
+        onEncodedTextAreaChange();
+        onDecodedTextAreaChange();
+    }
+    
     void MainWindow::handleTextAreaChange(
         TextAreaBase& iChangedTextArea,
         TextAreaBase& iOtherTextArea)
@@ -158,10 +171,11 @@ namespace protobuf_decoder
             std::cout << aFile << std::endl;
             _converter->setMessagePath(aFile);
             _messagePath.set_text(aFile);
-            return;
+            break;
         }
 
-        _messageComboBox = ValueComboBox(_converter->getMessages());
+        std::cout << _converter->getMessages().size() << "messages" << std::endl;
+        _messageComboBox.setValues(_converter->getMessages());
     }
     
 }

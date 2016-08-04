@@ -44,6 +44,21 @@ namespace protobuf_decoder
         _currentMessage = 0;
     }
 
+    
+    void ProtoBufConverter::setMessageType(const std::string& iMessageType)
+    {
+        for (const auto aMessage : _messages)
+        {
+            if (aMessage->GetTypeName() == iMessageType)
+            {
+                _currentMessage = aMessage;
+                std::cout << "Using message: " << iMessageType << std::endl;
+                return;
+            }
+        }
+    }
+
+    
     std::map<std::string, std::string> ProtoBufConverter::getAlgorithms()
     {
         return algorithm::ConversionAlgorithm::GetAlgorithms();
@@ -61,6 +76,18 @@ namespace protobuf_decoder
     
     std::string ProtoBufConverter::convertReadableToBinary(const std::string& iReadableString)
     {
+        if (_currentMessage)
+        {
+            if(google::protobuf::TextFormat::ParseFromString(iReadableString, _currentMessage))
+            {
+                std::string aBinString;
+                _currentMessage->SerializeToString(&aBinString);
+
+                return aBinString;    
+            }
+            
+        }
+        
         for (auto aMessage : _messages)
         {
             // Populate message from human readable representation in input.

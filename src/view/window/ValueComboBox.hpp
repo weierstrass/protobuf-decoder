@@ -19,7 +19,11 @@ namespace protobuf_decoder
 
             Gtk::TreeModelColumn<Glib::ustring> _name;
         };
-        
+
+        void setValues(const std::vector<std::string>& iValues);
+
+        std::string getActive();
+
         ModelColumns _columns;
 
         Glib::RefPtr<Gtk::ListStore> _refTreeModel;

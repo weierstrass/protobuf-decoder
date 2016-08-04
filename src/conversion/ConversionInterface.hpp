@@ -54,6 +54,8 @@ namespace protobuf_decoder
         virtual void setMessagePath(const std::string& iMessagePath) = 0;
 
 
+        virtual void setMessageType(const std::string& iMessageType) = 0;
+
         /**
          * @brief Retrieve all possible algorithms.
          *
