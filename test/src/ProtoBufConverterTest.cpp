@@ -55,7 +55,6 @@ TEST(ProtoBufConverterTest, multiFileConversion1)
 }
 TEST(ProtoBufConverterTest, multiFileConversion2)
 {
-
     TestEncodeDecode( // second file
         "test/data/message_multi_files",
         "08D209",
@@ -116,4 +115,16 @@ TEST(ProtoBufConverterTest, getMessageTypeDecode) // Decode
     aConverter.decode("0A07616E64726561731017");
     
     ASSERT_EQ("Person", aConverter.getMessageType());
+}
+
+/**
+ * The converter should accept a nested message with the messages
+ * defined in two separate files.
+ */
+TEST(ProtoBufConverterTest, nestedMultiFiles)
+{
+    TestEncodeDecode(
+        "test/data/message_nested_multi_files",
+        "0A056F7574657212070A05696E6E6572",
+        "outer_value: \"outer\"\ninner {\n  inner_value: \"inner\"\n}\n");    
 }

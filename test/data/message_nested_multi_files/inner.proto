@@ -1,0 +1,3 @@
+message Inner {
+  optional string inner_value = 1;
+}

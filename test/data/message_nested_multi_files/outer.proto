@@ -1,0 +1,6 @@
+import "inner.proto";
+
+message Outer {
+  optional string outer_value = 1;
+  repeated Inner inner = 2;
+}
