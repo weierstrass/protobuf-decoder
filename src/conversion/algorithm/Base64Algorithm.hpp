@@ -3,12 +3,11 @@
 
 #include "BaseAlgorithm.hpp"
 
-
 namespace protobuf_decoder
 {
     namespace algorithm
     {
-
+        
         class Base64Algorithm : public BaseAlgorithm<Base64Algorithm>
         {
         public:
@@ -17,7 +16,6 @@ namespace protobuf_decoder
             virtual std::string encode(const std::string& iString);
 
             virtual std::string decode(const std::string& iString);
-
         };
         
     }
