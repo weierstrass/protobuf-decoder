@@ -28,6 +28,7 @@ protobuf-decoder_test
 *.zip
 *.exe
 *.dmg
+*.deb
 
 # other
 .DS_Store

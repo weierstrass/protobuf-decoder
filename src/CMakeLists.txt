@@ -13,7 +13,7 @@ include_directories(
 include(FindProtobuf)
 find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIRS})
-message(${PROTOBUF_INCLUDE_DIRS})
+#message(${PROTOBUF_INCLUDE_DIRS})
 
 # BOOST
 find_package(Boost COMPONENTS system filesystem REQUIRED)
@@ -22,7 +22,11 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 file(GLOB_RECURSE SRC_FILES ./*.cpp)
 
 # define executable to build from source files
-add_executable(protobuf-decoder MACOSX_BUNDLE ${SRC_FILES})
+if(APPLE)
+  add_executable(protobuf-decoder MACOSX_BUNDLE ${SRC_FILES})
+else()
+  add_executable(protobuf-decoder ${SRC_FILES})
+endif()
 
 # link executable with libraries
 target_link_libraries(protobuf-decoder
@@ -55,5 +59,9 @@ if(APPLE)
                   set(BU_CHMOD_BUNDLE_ITEMS TRUE)
                   fixup_bundle(\"${CMAKE_INSTALL_PREFIX}/protobuf-decoder.app\" \"\" \"\")"
             COMPONENT Runtime)
+else()
+
+    INSTALL(TARGETS protobuf-decoder DESTINATION "${CMAKE_INSTALL_PREFIX}" )
+
 endif()
 
