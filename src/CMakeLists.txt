@@ -20,7 +20,7 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 file(GLOB_RECURSE SRC_FILES ./*.cpp)
 
 # define executable to build from source files
-add_executable(protobuf-decoder ${SRC_FILES})
+add_executable(protobuf-decoder MACOSX_BUNDLE ${SRC_FILES})
 
 # link executable with libraries
 target_link_libraries(protobuf-decoder
@@ -29,4 +29,29 @@ target_link_libraries(protobuf-decoder
     ${Boost_FILESYSTEM_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
 )
-    
+
+# bundle creation
+if(APPLE)
+    add_definitions(-DAPPLE_BUNDLE)
+    set(GUI_TYPE MACOSX_BUNDLE)
+
+    # create Info.plist file
+    #set(MACOSX_BUNDLE_ICON_FILE qterminal.icns)
+    set(MACOSX_BUNDLE_INFO_STRING "protobuf-decoder ${STR_VERSION}")
+    set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.protobuf-decoder")
+    set(MACOSX_BUNDLE_LONG_VERSION_STRING "${STR_VERSION}")
+    set(MACOSX_BUNDLE_BUNDLE_NAME "protobuf-decoder")
+    set(MACOSX_BUNDLE_SHORT_VERSION_STRING "${STR_VERSION}")
+    set(MACOSX_BUNDLE_BUNDLE_VERSION "${STR_VERSION}")
+    set(MACOSX_BUNDLE_COPYRIGHT "(c) Andreas Bülling")
+
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/src)
+
+    INSTALL(TARGETS protobuf-decoder DESTINATION "${CMAKE_INSTALL_PREFIX}" )
+
+    install(CODE "include(BundleUtilities)
+                  set(BU_CHMOD_BUNDLE_ITEMS TRUE)
+                  fixup_bundle(\"${CMAKE_INSTALL_PREFIX}/protobuf-decoder.app\" \"\" \"\")"
+            COMPONENT Runtime)
+endif()
+

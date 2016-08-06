@@ -3,6 +3,7 @@ test/build/*
 test/a.out
 a.out
 *~
+*#*
 
 # cmake
 CMakeCache.txt
@@ -13,10 +14,20 @@ cmake_install.cmake
 install_manifest.txt
 CTestTestfile.cmake
 Testing
+CMakeFiles/*
+CPackConfig.cmake
+CPackSourceConfig.cmake
+Debug/*
+Release/*
+_CPack_Packages/*
 
-# binaries
+# artifacts
 protobuf-decoder
 protobuf-decoder_test
+*.app
+*.zip
+*.exe
+*.dmg
 
 # other
 .DS_Store
