@@ -9,10 +9,10 @@ namespace protobuf_decoder
         set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
         
         // Set style parameters
-        _textView.set_top_margin(5);
-        _textView.set_bottom_margin(5);
-        _textView.set_left_margin(5);
-        _textView.set_right_margin(5);
+        //_textView.set_top_margin(5);
+        //_textView.set_bottom_margin(5);
+        //_textView.set_left_margin(5);
+        //_textView.set_right_margin(5);
 
         set_margin_bottom(5);
         //set_margin_bottom(10);

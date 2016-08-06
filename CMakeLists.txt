@@ -2,7 +2,8 @@ cmake_minimum_required (VERSION 2.8)
 
 project (protobuf-decoder)
 
-set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_CXX_STANDARD_REQUIRED 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #set(CMAKE_BUILD_TYPE Release)
 set(STR_VERSION "0.1.0")
 

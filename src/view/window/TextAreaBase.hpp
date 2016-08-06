@@ -2,7 +2,7 @@
 #define TEXT_AREA_BASE_H
 
 #include <gtkmm/scrolledwindow.h>
-#include <gtkmm/TextView.h>
+#include <gtkmm/textview.h>
 
 namespace protobuf_decoder
 {

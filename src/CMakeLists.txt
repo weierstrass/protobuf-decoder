@@ -10,8 +10,10 @@ include_directories(
     ${GTKMM_INCLUDE_DIRS}  )
 
 # set up protobuf
+include(FindProtobuf)
 find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIRS})
+message(${PROTOBUF_INCLUDE_DIRS})
 
 # BOOST
 find_package(Boost COMPONENTS system filesystem REQUIRED)

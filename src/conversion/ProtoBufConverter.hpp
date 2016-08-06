@@ -2,6 +2,7 @@
 #define PROTO_BUF_CONVERTER
 
 #include <vector>
+#include <memory>
 
 #include "ConversionInterface.hpp"
 #include "helper/MessageBuilder.hpp"
