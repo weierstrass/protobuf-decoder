@@ -1,6 +1,6 @@
 {
   "name": "protobuf-decoder",
   "tagline": "Tool to convert google protocol buffers between human readable and encoded binary formats",
-  "body": "# Find out what's hiding in the binary...\r\nAre you working with protocol buffer and wants to know what is actually inside the serialized binary data, then you might find this tool handy.\r\n\r\n[Download precompiled releases for some platforms here](https://github.com/weierstrass/protobuf-decoder/releases)\r\n\r\n![](protobuf_decoder_example.png)\r\n[![protobuf-decoder example](protobuf_decoder_example.png)](protobuf_decoder_example.png)\r\n",
+  "body": "# Find out what's hiding in the binary...\r\nAre you working with protocol buffer and wants to know what is actually inside the serialized binary data, then you might find this tool handy.\r\n\r\n[Download precompiled releases for some platforms here](https://github.com/weierstrass/protobuf-decoder/releases/latest)\r\n\r\n[![protobuf-decoder example](protobuf_decoder_example.png)](protobuf_decoder_example.png)\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
