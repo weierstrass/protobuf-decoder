@@ -21,15 +21,18 @@ This project uses the cmake suit to manage building and testing.
 ### Usage
 `$ ./src/protobuf-decoder`
 
+### Problems
+Open an issue here on Github.
+
 ## Supported conversion algorithms
 The supported algorithms to encode the binary data are today:
 * hex
 * base64
 
 ### Need support for another algorithm?
-If you know how to implement your algorithm in C++ then you are almost there. The project is open source and design to make it as easy as possible for a third party to add new algorithms.
+If you know how to implement your algorithm in C++ then you are almost there. The project is open source and designed to make it as easy as possible for a third party to add new algorithms.
 
-Basically this is what you have to do
+Basically this is what you have to do if you want to add a new algorithm:
 
 1. Create a new class in src/conversion/algorithm.
 2. Extend the protobuf_decoder::algorithm::BaseAlgorithm class.
@@ -69,9 +72,6 @@ std::string HexAlgorithm::decode(const std::string& iString)
 }
 ...
 ```
-This is really everythin that is needed, if you follow these steps your algorithm should automatically apear in the GUI without any need to modify existing code. How does it work?
+This is really everything that is needed, if you follow these steps your algorithm should automatically apear in the GUI without any need to modify any existing code. How does it work?
 
 If you do not have the necessary knowledge in C++, you can open an issue here on GitHub and I will try to do it when I find a spare moment.
-
-
-
