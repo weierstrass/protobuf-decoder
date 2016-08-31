@@ -30,7 +30,7 @@ namespace protobuf_decoder
             }
             catch(const boost::algorithm::not_enough_input& iEx)
             {
-                throw ConversionException("An even number of charcters is needed.");
+                throw ConversionException("An even number of characters is needed.");
             }
             
             return aDecodedString;
