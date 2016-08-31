@@ -8,78 +8,95 @@
 namespace protobuf_decoder
 {
 
+  /**
+   * @brief Interface for conversion implementations.
+   */
+  class ConversionInterface
+  {
+  public:
+
     /**
-     * @brief Interface for conversion implementations.
+     * @brief Algorithm to apply on decoded string to encode it.
+     *
+     * @param iDecodedString The string to encode.
+     *
+     * @return std::string The encoded string.
      */
-    class ConversionInterface
-    {
-    public:
+    virtual std::string encode(const std::string& iDecodedString) = 0;
 
-        /**
-         * @brief Algorithm to apply on decoded string to encode it.
-         *
-         * @param iDecodedString The string to encode.
-         *
-         * @return std::string The encoded string.
-         */
-        virtual std::string encode(const std::string& iDecodedString) = 0;
+    /**
+     * @brief Algorithm to apply on encoded string to decode it.
+     *
+     * @param iEncodedString The string to decode.
+     *
+     * @return std::string The decoded string.
+     */
+    virtual std::string decode(const std::string& iEncodedString) = 0;
 
-        /**
-         * @brief Algorithm to apply on encoded string to decode it.
-         *
-         * @param iEncodedString The string to decode.
-         *
-         * @return std::string The decoded string.
-         */
-        virtual std::string decode(const std::string& iEncodedString) = 0;
+    /**
+     * @brief Sets the encode algorithm to use when encoding.
+     *
+     * The algorithm is implemented using the bla bla interface.
+     *
+     * @param iAlgorithmKey The key for the algorithm.
+     *
+     * @return void
+     */
+    virtual void setEncodeAlgorithm(const std::string& iAlgorithmKey) = 0;
 
-        /**
-         * @brief Sets the encode algorithm to use when encoding.
-         *
-         * The algorithm is implemented using the bla bla interface.
-         *
-         * @param iAlgorithmKey The key for the algorithm.
-         *
-         * @return void
-         */
-        virtual void setEncodeAlgorithm(const std::string& iAlgorithmKey) = 0;
+    /**
+     * @brief Sets the path to the proto grammar message files.
+     *
+     * @param iMessagePath The path to message files.
+     *
+     * @return void
+     */
+    virtual void setMessagePath(const std::string& iMessagePath) = 0;
 
-        /**
-         * @brief Sets the path to the proto grammar message files.
-         *
-         * @param iMessagePath The path to message files.
-         *
-         * @return void
-         */
-        virtual void setMessagePath(const std::string& iMessagePath) = 0;
+    /**
+     * @brief Sets the type of message to use when performing conversion.
+     *
+     * @note If not set a best effort mode will be used when encoding/decoding.
+     *
+     * @param iMessageType The name of the message type in grammar.
+     *
+     * @return void
+     */
+    virtual void setMessageType(const std::string& iMessageType) = 0;
 
-
-        virtual void setMessageType(const std::string& iMessageType) = 0;
-
-        virtual std::string getMessageType() = 0;
+    /**
+     * @brieg Return the name of the message type that is currently
+     * used when encoding/decoding.
+     *
+     * @note Could either be message type decided by best effort or
+     * a message type set explicitly on the converter.
+     *
+     * @retrn string Name of message type in grammar.
+     */
+    virtual std::string getMessageType() = 0;
         
-        /**
-         * @brief Retrieve all possible algorithms.
-         *
-         * @return map<string, string> Key mapped to name for algorithms.
-         */
-        virtual std::map<std::string, std::string> getAlgorithms() = 0;
-        //                   ^            ^
-        //                  key         name
+    /**
+     * @brief Retrieve all possible algorithms.
+     *
+     * @return map<string, string> Key mapped to name for algorithms.
+     */
+    virtual std::map<std::string, std::string> getAlgorithms() = 0;
+    //                   ^            ^
+    //                  key         name
 
-        /**
-         * @brief Retrieves all possible messages.
-         *
-         * Name is guaranteed to be unique and can be used to set the
-         * message type to use when doing conversion through
-         * setMessage(const string&).
-         *
-         * @return vector<string> Name for messages.
-         */
-        virtual std::vector<std::string> getMessages() = 0;
-        //                      ^
-        //                     name
-    };
+    /**
+     * @brief Retrieves all possible messages.
+     *
+     * Name is guaranteed to be unique and can be used to set the
+     * message type to use when doing conversion through
+     * setMessage(const string&).
+     *
+     * @return vector<string> Name for messages.
+     */
+    virtual std::vector<std::string> getMessages() = 0;
+    //                      ^
+    //                     name
+  };
 
 }
 

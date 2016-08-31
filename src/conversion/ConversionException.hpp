@@ -6,11 +6,24 @@
 
 namespace protobuf_decoder
 {
-    struct ConversionException : public std::exception
-    {
-        ConversionException(const std::string& iText) : _text(iText) {}
+  /**
+   * @brief Exception class for functional exceptions.
+   *
+   * Throw an exception of this type to propagate an error/text
+   * to the user.
+   */
+  struct ConversionException : public std::exception
+  {
+    /**
+     * @brief Constructor
+     *
+     * @param iText Text message to propagate.
+     */
+    ConversionException(const std::string& iText) : _text(iText) {}
 
-        std::string _text;
-    };
+    /// The text message.
+    std::string _text;
+  };
 }
+
 #endif //_ALGORITHM_EXCEPTION_
