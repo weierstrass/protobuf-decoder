@@ -10,7 +10,7 @@ Are you working with protocol buffer and wants to know what is actually inside t
 Pre-compiled binaries can be found here https://github.com/weierstrass/protobuf-decoder/releases/latest
 
 ## Working with the source code
-This project uses the cmake suit to manage building and testing.
+This project uses the cmake suite to manage building and testing.
 
 ### Build
 `$ cmake . && make`
