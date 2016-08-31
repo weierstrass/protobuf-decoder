@@ -35,7 +35,7 @@ Basically this is what you have to do
 2. Extend the protobuf_decoder::algorithm::BaseAlgorithm class.
 3. Register the algorithm using the REGISTER_ALGORITHM macro.
 4. Make sure you have added test cases for your algorithm
-5. Do a pull request and would be more than happy to review it.
+5. Do a pull request and I would be more than happy to review it.
 
 An example for the hex algorithm.
 ```
@@ -71,7 +71,7 @@ std::string HexAlgorithm::decode(const std::string& iString)
 ```
 This is really everythin that is needed, if you follow these steps your algorithm should automatically apear in the GUI without any need to modify existing code. How does it work?
 
-If you do not have the necessary knowledge in C++, you can also let me know what you need and I will try to do it when I find a spare moment.
+If you do not have the necessary knowledge in C++, you can open an issue here on GitHub and I will try to do it when I find a spare moment.
 
 
 
