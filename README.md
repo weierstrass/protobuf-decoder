@@ -72,6 +72,6 @@ std::string HexAlgorithm::decode(const std::string& iString)
 }
 ...
 ```
-This is really everything that is needed, if you follow these steps your algorithm should automatically apear in the GUI without any need to modify any existing code. How does it work?
+This is really everything that is needed, if you follow these steps your algorithm should automatically apear in the GUI without any need to modify any existing code. [How does it work?](https://github.com/weierstrass/protobuf-decoder/wiki/Conversion-algorithm-details)
 
 If you do not have the necessary knowledge in C++, you can open an issue here on GitHub and I will try to do it when I find a spare moment.
