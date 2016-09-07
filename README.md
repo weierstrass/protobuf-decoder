@@ -10,7 +10,7 @@ Are you working with protocol buffer and wants to know what is actually inside t
 Pre-compiled binaries can be found here https://github.com/weierstrass/protobuf-decoder/releases/latest
 
 ## Working with the source code
-This project uses the cmake suite to manage building and testing.
+This project uses the cmake suite to manage building and testing. The testing and mocking util used is [GTest and GMock](https://github.com/google/googletest)
 
 ### Build
 `$ cmake . && make`
@@ -40,14 +40,14 @@ Basically this is what you have to do if you want to add a new algorithm:
 4. Make sure you have added test cases for your algorithm
 5. Do a pull request and I would be more than happy to review it.
 
-An example for the hex algorithm.
+An example for a new algorithm.
 ```
-// HexAlgorithm.hpp
+// src/conversion/algorithm/MyAlgorithm.hpp
 ...
-class HexAlgorithm : public BaseAlgorithm<HexAlgorithm> // 2. Extend base Algorithm.
+class MyAlgorithm : public BaseAlgorithm<MyAlgorithm> // 2. Extend base Algorithm.
 {
 public:
-  virtual ~HexAlgorithm() {}
+  virtual ~MyAlgorithm() {}
 
   virtual std::string encode(const std::string& iString);
 
@@ -57,16 +57,16 @@ public:
 ```
 
 ```
-// HexAlgorithm.cpp
+// src/conversion/algorithm/MyAlgorithm.cpp
 ...
-REGISTER_ALGORITHM(HexAlgorithm, "HEX"); // 3. Register new algorithm.
+REGISTER_ALGORITHM(MyAlgorithm, "MY ALGO"); // 3. Register new algorithm.
 ...
-std::string HexAlgorithm::encode(const std::string& iString)
+std::string MyAlgorithm::encode(const std::string& iString)
 {
   // Encoding implementation.
 }
 
-std::string HexAlgorithm::decode(const std::string& iString)
+std::string MyAlgorithm::decode(const std::string& iString)
 {
   // Decoding implementation.
 }
