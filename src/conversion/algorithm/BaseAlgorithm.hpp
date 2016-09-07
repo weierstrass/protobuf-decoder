@@ -35,25 +35,47 @@ namespace protobuf_decoder
         class BaseAlgorithm : public ConversionAlgorithm
         {
         public:
-            
+            /**
+             * @brief Constructor
+             * 
+             * Passes on the registration key to the ConversionAlgorithm class
+             * that will register the class in its table.
+             */
             BaseAlgorithm() : ConversionAlgorithm(_key) {}
 
+            /**
+             * @brief Destructor 
+             */
             virtual ~BaseAlgorithm() {}
 
+            /**
+             * @brief Returns name of algorithm.
+             * 
+             * Default implemenation, uses the key as name.
+             * 
+             * @return Name of algorithm.
+             */
             std::string getName()
             {
                 return _key;
             }
             
+            /**
+             * @brief Create new algorithm object.
+             * 
+             * @return shared_ptr<T> Shared pointer to algorithm.
+             */
             std::shared_ptr<ConversionAlgorithmInterface> create()
             {
                 std::cout << "new obj" << std::endl;
                 return std::make_shared<T>();
             }
 
+            /// Key for algorithm. (static since it is used in static registration table.)
             static std::string _key;
 
         protected:
+            /// Static exemplar of algorithm, used in virtual constructor.
             static T _exemplar;
 
         };
