@@ -19,5 +19,5 @@ before_script:
 
 script: 
   - make
-  - cp -R ../test/data .
+  - cp -R ../test/data ./test/data
   - ctest -V
