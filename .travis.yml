@@ -20,4 +20,4 @@ before_script:
 script: 
   - make
   - cd ..
-  - ctest -V
+  - ctest build -V
