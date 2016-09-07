@@ -75,12 +75,41 @@ namespace protobuf_decoder
      */
     virtual void setMessagePath(const std::string& iMessagePath);
 
+    /**
+     * @brief Set the message type to use when converting.
+     * 
+     * This should be the name of the protobuf desctiptor for the 
+     * message that will be converted.
+     * 
+     * If no message type is set explicitly a best effort mode
+     * is available. 
+     * 
+     * @param iMessageType Message type to use.
+     */
     virtual void setMessageType(const std::string& iMessageType);
 
+    /**
+     * @brief Get the message type that is currently used when converting.
+     * 
+     * The message type returned here is either the explicitly set one
+     * or the message type decided by the best effort mode.
+     * 
+     * @return string Protobuf descriptor name of message type.
+     */
     virtual std::string getMessageType();
-        
+    
+    /**
+     * @brief Get all algorithms that is currently supported by the converter.
+     * 
+     * @return map<string, string> Alogirhtms (key, name pair).
+     */
     virtual std::map<std::string, std::string> getAlgorithms();
 
+    /**
+     * @brief Get all message types that is handled by the converter.
+     * 
+     * @return vector<string> Message types.
+     */
     virtual std::vector<std::string> getMessages();
     
   private:
@@ -101,14 +130,19 @@ namespace protobuf_decoder
      */
     std::string convertBinaryToReadable(const std::string& iBinaryString);
 
+    /// Path to directory with messages.
     std::string _messagePath;
 
+    /// Possible messages currently handled.
     std::vector<google::protobuf::Message*> _messages;
 
+    /// Message that is currently used when convering. 
     google::protobuf::Message* _currentMessage;
-
+  
+    /// Helper for reading messages from file system.
     MessageBuilder _messageBuilder;
 
+    /// Encode/decode algorithm that is currently used in the converter.
     std::shared_ptr<algorithm::ConversionAlgorithmInterface> _algorithm;
   };
     
