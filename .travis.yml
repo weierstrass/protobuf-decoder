@@ -5,7 +5,7 @@ compiler:
   
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install libprotobuf-dev libboost-all-dev libgtk-3-dev libgtest0 libgtest-dev
+  - sudo apt-get install libprotobuf-dev libboost-all-dev libgtk-3-dev libgtest-dev
 
 before_script:
   - mkdir build
