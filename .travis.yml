@@ -19,5 +19,5 @@ before_script:
 
 script: 
   - make
-  - cd ..
-  - ctest -V build
+  - cp -R ../test/data .
+  - ctest -V
