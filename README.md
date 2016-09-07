@@ -1,4 +1,4 @@
-# protobuf-decoder
+# protobuf-decoder [![Build Status](https://travis-ci.org/weierstrass/protobuf-decoder.svg?branch=master)](https://travis-ci.org/weierstrass/protobuf-decoder)
 
 https://weierstrass.github.io/protobuf-decoder/
 
