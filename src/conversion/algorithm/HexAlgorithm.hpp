@@ -8,6 +8,9 @@ namespace protobuf_decoder
 {
     namespace algorithm
     {
+        /**
+         * @brief Algorithm handling hexadecimal encoding/decoding. 
+         */
         class HexAlgorithm : public BaseAlgorithm<HexAlgorithm>
         {
         public:
